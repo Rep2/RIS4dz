@@ -1,0 +1,68 @@
+@model IEnumerable<RIS4dz.Models.Stock>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            Last update date
+        </th>
+        <th>
+            Buy rate
+        </th>
+        <th>
+            Sell rate
+        </th>
+        <th></th>
+    </tr>
+    
+@foreach (var item in Model) {
+
+    StockState state = item.States.OrderByDescending(s => s.Date).FirstOrDefault();
+
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        
+        @if (state != null)
+        {
+            <td>
+                @state.Date
+            </td>
+            <td>
+                @state.BuyRate
+            </td>
+            <td>
+                @state.SellRate
+            </td>
+        }
+        else
+        {
+            <td>
+                No data available
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+        }
+        <td>
+            <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+            <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+            <a asp-action="Delete" asp-route-id="@item.ID">Delete</a> |
+            <a asp-action="CreateBuy" asp-controller="StockOrders" asp-route-id="@item.ID">Buy stock</a>
+        </td>
+    </tr>
+}
+</table>

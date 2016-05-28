@@ -1,0 +1,36 @@
+@model RIS4dz.Models.StockMultiplyer
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>StockMultiplyer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Stock
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Stock.Name)
+        </dd>
+        <dt>
+            Fund
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Fund.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Multiplyer)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Multiplyer)
+        </dd>
+    </dl>
+</div>
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</p>

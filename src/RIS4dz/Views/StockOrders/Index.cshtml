@@ -1,0 +1,89 @@
+@model IEnumerable<RIS4dz.Models.StockOrder>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Stock
+        </th>
+        <th>
+            Date ordered
+        </th>
+        <th>
+            Current Value
+        </th>
+        <th>
+            Value at Order
+        </th>
+        <th>
+            Total Value At Order
+        </th>
+        <th>
+            P/L
+        </th>
+        <th>
+            Transaction Fee
+        </th>
+        <th>
+            Number of Shares
+        </th>
+        <th>
+            Total Gain
+        </th>
+        <th></th>
+    </tr>
+    
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stock.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOrdered)
+        </td>
+        <td>
+            @{ 
+                var state = (ViewBag.States as List<StockState>).Where(s => s.StockID == item.StockID).OrderByDescending(s => s.Date).FirstOrDefault();
+            }
+
+            @if (state != null)
+            {
+                @state.SellRate;
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShareValueAtOrder)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalValueAtOrder)
+        </td>
+        <td>
+            @if (state != null)
+            {
+                @((state.SellRate - item.ShareValueAtOrder) * item.NumberOfShares)
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TransactionFee)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberOfShares)
+        </td>
+        <td>
+            @if (state != null)
+            {
+                @((state.SellRate - item.ShareValueAtOrder) * item.NumberOfShares - item.TransactionFee)
+            }
+        </td>
+        <td>
+            <a asp-action="Delete" asp-route-id="@item.ID">Sell</a>
+        </td>
+    </tr>
+}
+</table>

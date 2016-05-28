@@ -1,0 +1,40 @@
+@model RIS4dz.Models.StockMultiplyer
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>StockMultiplyer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Stock
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Stock.Name)
+        </dd>
+        <dt>
+            Fund
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Fund.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Multiplyer)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Multiplyer)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>
